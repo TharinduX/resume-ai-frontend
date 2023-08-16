@@ -18,7 +18,7 @@ const Uploader = () => {
           their chances of success.
         </p>
       </div>
-      <div className='max-w-3xl bg-white rounded-lg shadow p-10 justify-center  mx-auto '>
+      <div className='max-w-3xl bg-white rounded-lg shadow-md p-10 justify-center  mx-auto '>
         <div>
           <DropUploader />
         </div>
