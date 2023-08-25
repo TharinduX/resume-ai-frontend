@@ -1,10 +1,13 @@
 import React from 'react';
 
-const ATS = ({ parseRate }) => {
+const ATS = ({ parseRate, icon }) => {
   return (
     <div className='mb-5 shadow-md'>
       <div className='bg-white p-6 rounded-md'>
-        <h1 className='font-semibold text-2xl mb-4'>ATS Parse Rate</h1>
+        <div className='flex gap-2'>
+          <div className='text-3xl'>{icon}</div>
+          <h1 className='font-semibold text-2xl mb-4'>ATS Parse Rate</h1>
+        </div>
         <p className='text-sm text-gray-500 mb-4'>
           An Applicant Tracking System commonly referred to as ATS is a system
           used by employers and recruiters to quickly scan a large number of job

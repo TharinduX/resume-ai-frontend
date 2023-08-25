@@ -4,8 +4,8 @@ import DropUploader from '../components/DropUploader';
 const Uploader = () => {
   return (
     <div className='h-screen w-full bg-gradient-to-r from-teal-800 to-teal-700 flex items-center justify-center space-x-6'>
-      <div className='text-white flex flex-col gap-3 mb-5 p-10 max-w-2xl'>
-        <h1 className='font-bold text-5xl'>
+      <div className='text-white flex flex-col gap-3 mb-5 p-10 max-w-2xl w-2/3'>
+        <h1 className='font-bold text-5xl '>
           AI-Powered Job Application Analyzer
         </h1>
         <p className='text-xl text-teal-400'>
@@ -18,7 +18,7 @@ const Uploader = () => {
           their chances of success.
         </p>
       </div>
-      <div className='max-w-3xl bg-white rounded-lg shadow-md p-10 justify-center  mx-auto '>
+      <div className='max-w-3xl bg-white rounded-lg shadow-md p-10 justify-center  mx-auto w-1/3'>
         <div>
           <DropUploader />
         </div>

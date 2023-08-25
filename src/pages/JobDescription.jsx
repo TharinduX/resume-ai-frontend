@@ -1,20 +1,30 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Loading from './Loading';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const JobDescription = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { pdfText, file } = location.state || {};
   const [jobDescription, setJobDescription] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleNext = async () => {
-    // Access the passed PDF text from location state
-    const { pdfText } = location.state || {};
+  const handleNext = () => {
+    if (!jobDescription) {
+      toast.error('Please fill in the job description.');
+    } else {
+      fetchData(pdfText, jobDescription);
+    }
+  };
 
+  const handleSkip = () => {
+    fetchData(pdfText, '');
+  };
+
+  const fetchData = async (pdfText, jobDescription) => {
     setIsLoading(true);
-
-    // Simulate sending data to the backend (replace with your actual API call)
     try {
       const response = await fetch('/api/process-data', {
         method: 'POST',
@@ -24,17 +34,16 @@ const JobDescription = () => {
         body: JSON.stringify({
           pdfText: pdfText,
           jobDescription: jobDescription,
+          file: {
+            name: file.name,
+            size: file.size,
+            type: file.type,
+          },
         }),
       });
-
-      const data = await response.json();
-      console.log('API Response:', data);
-
+      const uuid = await response.json();
       setIsLoading(false);
-
-      // Navigate to the next page or perform other actions
-      navigate('/dashboard');
-      window.history.replaceState(null, '', '/dashboard');
+      navigate(`/dashboard/${uuid}`);
     } catch (error) {
       console.error('Error:', error);
       setIsLoading(false);
@@ -47,7 +56,7 @@ const JobDescription = () => {
         <Loading />
       ) : (
         <div className='h-screen w-full bg-gradient-to-r from-teal-800 to-teal-700 flex items-center justify-center space-x-6'>
-          <div className='text-white flex flex-col gap-3 mb-5 p-10 max-w-2xl'>
+          <div className='text-white flex flex-col gap-3 mb-5 p-10 max-w-2xl w-2/3'>
             <h1 className='font-bold text-4xl'>
               Are you looking to match your resume with a specific job?
             </h1>
@@ -61,7 +70,7 @@ const JobDescription = () => {
             </p>
           </div>
 
-          <div className='max-w-3xl bg-white rounded-lg shadow-md p-10 justify-center mx-auto'>
+          <div className='max-w-3xl bg-white rounded-lg shadow-md p-10 justify-center mx-auto w-1/3'>
             <div>
               <textarea
                 className='shadow-inner w-full h-full p-5'
@@ -76,7 +85,7 @@ const JobDescription = () => {
               <div className='flex gap-2'>
                 <button
                   className='bg-gray-200 py-2 px-4 rounded-lg mt-4 hover:bg-gray-300'
-                  onClick={handleNext}
+                  onClick={handleSkip}
                 >
                   Skip this step
                 </button>

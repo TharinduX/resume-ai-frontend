@@ -1,10 +1,14 @@
 import React from 'react';
 
-const FileFormat = ({ size, fileFormat }) => {
+const FileFormat = ({ size, fileFormat, icon }) => {
+  size = (size / 1024 / 1024).toFixed(2);
   return (
     <div className='mb-5 shadow-md'>
       <div className='bg-white p-6 rounded-md'>
-        <h1 className='font-semibold text-2xl mb-4'>File Format & Size</h1>
+        <div className='flex gap-2'>
+          <div className='text-3xl'>{icon}</div>
+          <h1 className='font-semibold text-2xl mb-4'>File Format & Size</h1>
+        </div>
         <p className='text-sm text-gray-500 mb-4'>
           When you’re uploading your resume in platforms like Indeed, you’re
           likely to meet a file size limit. Ideally, your resume should be less
@@ -18,7 +22,7 @@ const FileFormat = ({ size, fileFormat }) => {
         </p>
         <div className='bg-yellow-100 p-6 rounded-lg'>
           <p className='text-lg font-semibold text-yellow-800 mb-2'>
-            Your resume size is {size}mb and your file format is {fileFormat}.
+            Your resume size is {size} MB and your file format is {fileFormat}.
           </p>
           <p className='text-sm text-yellow-800'>
             Modern ATS checkers can read PDFs well. Although you can still

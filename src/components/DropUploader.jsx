@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import * as pdfjsLib from 'pdfjs-dist';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.js`;
 
@@ -40,18 +42,21 @@ const DropUploader = () => {
     }
   };
 
-  const onDrop = useCallback(
+  const onDropAccepted = useCallback(
     async (acceptedFiles) => {
       const file = acceptedFiles[0];
       setUploadedFile(file);
 
       try {
         const pdfText = await extractPdfText(file);
-        console.log('Extracted PDF Text:', pdfText);
-
         setUploadedFile(null);
-        console.log('PDF text extraction completed');
-        navigate('/job-description', { state: { pdfText } });
+        navigate('/job-description', {
+          state: {
+            pdfText: pdfText,
+            file: file,
+          },
+          replace: true,
+        });
       } catch (error) {
         console.error('Error:', error);
       }
@@ -59,7 +64,23 @@ const DropUploader = () => {
     [navigate]
   );
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const onDropRejected = (rejectedFiles) => {
+    // Show toast notification for rejected files
+    rejectedFiles.forEach((file) => {
+      toast.error(
+        `File "${file.file.name}" was rejected. Please select a valid PDF file.`
+      );
+    });
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDropAccepted,
+    onDropRejected,
+    accept: {
+      'application/pdf': ['.pdf'],
+    },
+    maxSize: 2 * 1024 * 1024, // Maximum file size of 2MB
+  });
 
   return (
     <div

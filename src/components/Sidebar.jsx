@@ -23,7 +23,7 @@ const Sidebar = ({ analyzedData }) => {
           </div>
           <p className='text-center text-xl text-white'>Un-Matching Skills:</p>
           <div className='flex flex-wrap justify-center mt-2 mb-6'>
-            {analyzedData.unmatchingSkills.map((skill, index) => (
+            {cvMatchingSkills.map((skill, index) => (
               <span
                 key={index}
                 className='bg-green-800 text-white text-sm px-2 py-1 rounded-lg m-1'
