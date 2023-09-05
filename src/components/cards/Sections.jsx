@@ -6,7 +6,9 @@ const Sections = ({ icon, sections }) => {
     <div className='mb-5 shadow-md'>
       <div className='bg-white p-6 rounded-md'>
         <div className='flex gap-2'>
-          <div className='text-3xl'>{icon}</div>
+          <div className='text-3xl' key={icon}>
+            {icon}
+          </div>
           <h1 className='font-semibold text-2xl mb-4'>Essential Sections</h1>
         </div>
         <p className='text-sm text-gray-500 mb-4'>
@@ -26,10 +28,11 @@ const Sections = ({ icon, sections }) => {
             </p>
             <div className='items-center flex flex-col gap-2 '>
               {sections.available.map((section, index) => (
-                <div className='flex bg-green-800 w-2/3 text-white  rounded-lg p-2 text-center justify-center gap-3 items-center'>
-                  <div className='capitalize' id={index}>
-                    {section} section
-                  </div>
+                <div
+                  className='flex bg-green-800 w-2/3 text-white  rounded-lg p-2 text-center justify-center gap-3 items-center'
+                  key={index}
+                >
+                  <div className='capitalize'>{section} section</div>
                   <FaCheckCircle />
                 </div>
               ))}
@@ -42,10 +45,11 @@ const Sections = ({ icon, sections }) => {
               </p>
               <div className='items-center flex flex-col'>
                 {sections.unavailable.map((section, index) => (
-                  <div className='flex bg-red-800 w-2/3 text-white  rounded-lg p-2 text-center justify-center gap-3 items-center'>
-                    <div className='capitalize' id={index}>
-                      {section} section
-                    </div>
+                  <div
+                    className='flex bg-red-800 w-2/3 text-white  rounded-lg p-2 text-center justify-center gap-3 items-center'
+                    key={index}
+                  >
+                    <div className='capitalize'>{section} section</div>
                     <FaWindowClose />
                   </div>
                 ))}

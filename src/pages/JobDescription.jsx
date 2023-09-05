@@ -43,7 +43,7 @@ const JobDescription = () => {
       });
       const uuid = await response.json();
       setIsLoading(false);
-      navigate(`/dashboard/${uuid}`);
+      navigate(`/analysis/${uuid}`);
     } catch (error) {
       console.error('Error:', error);
       setIsLoading(false);

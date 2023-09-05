@@ -19,15 +19,13 @@ const ATS = ({ parseRate, icon }) => {
           your resume seen by recruiters.
         </p>
         <div className='mt-4'>
-          <p className='font-semibold mb-2'>Parse Rate Progress:</p>
+          <p className='font-semibold mb-2 flex gap-2'>
+            Parse Rate Progress:
+            <span className='text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-white bg-teal-700'>
+              {parseRate}%
+            </span>
+          </p>
           <div className='relative pt-1'>
-            <div className='flex mb-2 items-center justify-between'>
-              <div>
-                <span className='text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-600 bg-teal-200'>
-                  {parseRate}%
-                </span>
-              </div>
-            </div>
             <div className='overflow-hidden h-2 mb-4 text-xs flex rounded bg-teal-200'>
               <div
                 style={{ width: `${parseRate}%` }}
