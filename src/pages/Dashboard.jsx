@@ -7,6 +7,7 @@ import SidebarCards from '../components/SidebarCards';
 import Sections from '../components/cards/Sections';
 import MatchingSkills from '../components/cards/MatchingSkills';
 import Length from '../components/cards/Length';
+import Role from '../components/cards/Role';
 import {
   FcReading,
   FcDocument,
@@ -14,11 +15,18 @@ import {
   FcCellPhone,
   FcDiploma2,
   FcFinePrint,
+  FcBriefcase,
+  FcBarChart,
+  FcIdea,
 } from 'react-icons/fc';
-import { FaRegCopy, FaRedo, FaCheck } from 'react-icons/fa';
+import { FaRegCopy, FaRedo, FaCheck, FaTrashAlt } from 'react-icons/fa';
 import Loading from './Loading';
 import Contact from './../components/cards/Contact';
 import Skills from '../components/cards/Skills';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Experience from '../components/cards/Experience';
+import Recommendation from '../components/cards/Recommendation';
 
 const Dashboard = () => {
   const location = useLocation();
@@ -26,6 +34,33 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { uuid } = useParams();
   const [isLinkCopied, setIsLinkCopied] = useState(false);
+
+  const handleDeleteClick = () => {
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete this item?'
+    );
+
+    if (confirmDelete) {
+      // Send a DELETE request to your API to delete the result with the provided UUID
+      fetch(`/api/delete-result/${uuid}`, {
+        method: 'DELETE',
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            // Successful deletion
+            toast.success('Item deleted successfully!');
+            window.location.href = '/';
+          } else if (response.status === 404) {
+            toast.error('Item not found.');
+          } else {
+            toast.error('An error occurred while deleting the item.');
+          }
+        })
+        .catch((error) => {
+          toast.error('An error occurred while deleting the item.');
+        });
+    }
+  };
 
   const copyURLToClipboard = () => {
     const urlToCopy = window.location.href;
@@ -73,7 +108,7 @@ const Dashboard = () => {
                     Resume Analyzer
                   </h1>
                   <Indicator value={processedData.overall_score} />
-                  <SidebarCards />
+                  <SidebarCards data={processedData} />
                 </div>
               </aside>
               <main className='bg-gray-200 rounded-md p-6 w-3/4 relative overflow-y-auto pt-0'>
@@ -102,6 +137,15 @@ const Dashboard = () => {
                       </button>
                     </div>
                     <div>
+                      <button
+                        onClick={handleDeleteClick}
+                        className='px-4 py-2 bg-red-600 rounded-lg ml-2'
+                      >
+                        <span className='flex gap-2 items-center text-white'>
+                          <FaTrashAlt />
+                          Delete
+                        </span>
+                      </button>
                       <button
                         className='px-4 py-2 rounded-lg ml-2 bg-teal-700 text-white'
                         onClick={() => {
@@ -164,9 +208,24 @@ const Dashboard = () => {
                     </>
                   )}
                   {activeTab === 'career' && (
-                    <div>
-                      <p>Career Guidance Tab Content</p>
-                    </div>
+                    <>
+                      {processedData.cvSkillsList.ROLE && (
+                        <Role
+                          icon={<FcBriefcase />}
+                          skills={processedData.cvSkillsList}
+                        />
+                      )}
+                      {processedData.cvSkillsList.EXP && (
+                        <Experience
+                          icon={<FcBarChart />}
+                          skills={processedData.cvSkillsList}
+                        />
+                      )}
+                      <Recommendation
+                        icon={<FcIdea />}
+                        resume={processedData}
+                      />
+                    </>
                   )}
                 </div>
               </main>

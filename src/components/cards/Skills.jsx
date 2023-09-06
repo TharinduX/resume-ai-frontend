@@ -26,7 +26,7 @@ const Skills = ({ icon, skills, cross }) => {
               include soft skills like teamwork, leadership, and communication.
             </p>
             <h1 className='text-lg mb-4 text-gray-400'>- Education -</h1>
-            {skills.EDUCATION.length ? (
+            {skills.EDUCATION ? (
               <div className='flex flex-wrap justify-center mt-2 mb-6'>
                 {skills.EDUCATION.map((skill, index) => (
                   <span
@@ -55,7 +55,7 @@ const Skills = ({ icon, skills, cross }) => {
             )}
 
             <h1 className='text-lg mb-4 text-gray-400'>- Technical Skills -</h1>
-            {skills.TECHNICAL.length ? (
+            {skills.TECHNICAL ? (
               <div className='flex flex-wrap justify-center mt-2 mb-6'>
                 {skills.TECHNICAL.map((skill, index) => (
                   <span
@@ -91,7 +91,7 @@ const Skills = ({ icon, skills, cross }) => {
               skills, time management, problem-solving, leadership, and empathy,
               among others.
             </p>
-            {skills.SOFT.length ? (
+            {skills.SOFT ? (
               <div className='flex flex-wrap justify-center mt-2 mb-6'>
                 {skills.SOFT.map((skill, index) => (
                   <span

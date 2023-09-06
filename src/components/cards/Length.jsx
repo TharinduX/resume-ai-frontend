@@ -21,12 +21,12 @@ const Length = ({ icon, word_count }) => {
         </p>
         <div className='mt-4'>
           {word_count < 400 ? (
-            <div className='bg-red-200 p-6 rounded-lg '>
+            <div className='bg-yellow-200 p-6 rounded-lg '>
               <div className='flex gap-2 items-start '>
-                <p className='text-lg font-semibold text-red-800 mb-2'>
+                <p className='text-lg font-semibold text-yellow-800 mb-2'>
                   Your resume is too short.
                 </p>
-                <p className='bg-red-300 items-center flex px-3 rounded-lg text-red-800'>
+                <p className='bg-yellow-300 items-center flex px-3 rounded-lg text-yellow-800'>
                   {word_count} words
                 </p>
               </div>
@@ -39,10 +39,10 @@ const Length = ({ icon, word_count }) => {
           ) : word_count >= 400 && word_count <= 800 ? (
             <div className='bg-green-200 p-6 rounded-lg'>
               <div className='flex gap-2 items-start '>
-                <p className='text-lg font-semibold text-red-800 mb-2'>
+                <p className='text-lg font-semibold text-green-800 mb-2'>
                   Your resume length is ideal, Good job!.
                 </p>
-                <p className='bg-red-300 items-center flex px-3 rounded-lg text-red-800'>
+                <p className='bg-green-300 items-center flex px-3 rounded-lg text-green-800'>
                   {word_count} words
                 </p>
               </div>
